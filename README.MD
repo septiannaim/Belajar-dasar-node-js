@@ -1,10 +1,10 @@
-# Node.js, Thread Pool, Concurrency, dan Parallelism
+# Node.js, Thread Pool, Concurrency, dan Path Module
 
 ## Node.js
 Node.js adalah runtime JavaScript berbasis event-driven dan non-blocking I/O. Node.js sangat efisien untuk aplikasi yang membutuhkan banyak operasi I/O seperti web server, API, dan aplikasi real-time.
 
 ## Event Loop di Node.js
-Event loop adalah inti dari arsitektur Node.js. Event loop memungkinkan Node.js untuk menangani banyak permintaan secara bersamaan tanpa membuat thread baru untuk setiap permintaan. Event loop akan terus berjalan, memeriksa antrian event/callback, dan mengeksekusi callback satu per satu secara non-blocking. Dengan cara ini, Node.js dapat menangani ribuan koneksi secara efisien pada satu thread utama.
+Event loop adalah inti dari arsitektur Node.js. Event loop memungkinkan Node.js untuk menangani banyak permintaan secara bersamaan tanpa membuat thread baru untuk setiap permintaan. Event loop akan terus berjalan, memeriksa antrian event/callback, dan mengeksekusi callback satu per satu secara non-blocking.
 
 Ilustrasi sederhana event loop:
 ```js
@@ -24,6 +24,21 @@ Timeout selesai
 ```
 Pada contoh di atas, `setTimeout` diproses secara asynchronous oleh event loop, sehingga baris "Selesai" dieksekusi sebelum "Timeout selesai".
 
+## Path Module
+Path module adalah modul bawaan Node.js yang digunakan untuk mengelola path file dan direktori. Modul ini sangat berguna untuk operasi file system yang cross-platform.
+
+Contoh penggunaan path module:
+```js
+import path from 'path';
+
+const file = "C:\\Users\\Username\\contoh.html";
+
+console.info(path.sep);              // Separator sesuai OS
+console.info(path.dirname(file));    // Mendapatkan direktori
+console.info(path.basename(file));   // Mendapatkan nama file
+console.info(path.extname(file));    // Mendapatkan ekstensi file
+console.info(path.parse(file));      // Parse path menjadi object
+```
 ## Thread Pool di Node.js
 Node.js menggunakan single-threaded event loop untuk menangani sebagian besar operasi. Namun, untuk operasi yang berat (misal: file system, enkripsi, kompresi), Node.js memanfaatkan **thread pool** melalui library [libuv](https://libuv.org/). Secara default, thread pool ini berisi 4 thread, namun bisa diubah dengan environment variable `UV_THREADPOOL_SIZE`.
 
